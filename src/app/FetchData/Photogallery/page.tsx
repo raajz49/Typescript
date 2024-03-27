@@ -12,8 +12,8 @@ interface Photo{
     //       return res.json();
     //   }
 
-const FetchData = async() => {
-  const data= await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=1`).then((res)=>res.json());
+const fetchDataPage = async() => {
+  const data= await fetch(`https://jsonplaceholder.typicode.com/photos`).then((res)=>res.json());
   return(
     <>
      {data.map((photo:Photo,id:number)=>(
@@ -31,4 +31,4 @@ const FetchData = async() => {
   
 }
 
-export default FetchData
+export default fetchDataPage;
