@@ -10,12 +10,12 @@ const FetchComments =async()=>{
     const data=await fetch("https://jsonplaceholder.typicode.com/comments").then(res=>res.json())
 
     return(
-        <div>
+        <div >
             {
                 data.map((comment:Comments)=>(
-                    <div key={comment.id}>
+                    <div key={comment.id} >
                           <p className='underline'>Comment {comment.id}</p>
-                <h1></h1>
+              
                 <p className='underline'>Name</p>
                 <h1>{comment.name}</h1>
 
