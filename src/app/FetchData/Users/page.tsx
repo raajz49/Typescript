@@ -44,13 +44,21 @@ const FetchData= async()=>{
             {
                 data.map((user:Users)=>(
                     <div key={user.id}>
-                         <Link href={`/FetchData/Post/${user.id}/`} >
-                            <div className='dark:bg-gray-300  dark:text-black p-3'>
+                         
+                            <div className='dark:bg-gray-300 bg-blue-500  dark:text-black p-3 rounded-lg'>
+                            <Link href={`/FetchData/Post/${user.id}/`} >
                           <p className='mb-2'><strong className=''>Name:</strong> {user.name}</p>
             <p className='mb-2'><strong className=''>Email:</strong> <span className='italic'>{user.email}</span></p>
             <p className='mb-2'><strong className=''>City:</strong> <span className=''>{user.address.city}</span></p>
-                    </div>
             </Link>
+          <hr className='border-black'/>
+            <Link href={`/FetchData/Todolist/${user.id}/`} >
+            <p className='italic font-serif underline bg-blue-300  '>Click For Todo</p>
+          
+            </Link>
+                    </div>
+         
+            
           
                     </div>
                 ))}
