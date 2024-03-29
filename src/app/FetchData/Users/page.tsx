@@ -34,7 +34,7 @@ const FetchData= async()=>{
     }, []);
     return(
         <div className='mt-20'>
-            <h1 className="text-2xl text-red-600 font-serif  mb-4">Users</h1>
+            <h1 className="text-2xl text-red-600 dark:text-white dark:font-bold underline font-serif  mb-4">Users</h1>
 
             {(loading) ? (
                 <SkeletonCard />
@@ -47,13 +47,15 @@ const FetchData= async()=>{
                          
                             <div className='dark:bg-gray-300 bg-blue-500  dark:text-black p-3 rounded-lg'>
                             <Link href={`/FetchData/Post/${user.id}/`} >
-                          <p className='mb-2'><strong className=''>Name:</strong> {user.name}</p>
+                                <p className=' underline dark:bg-gray-400 dark:text-black italic text-slate-500 hover:bg-gray-300 rounded font-serif font-semibold dark:font-normal bg-blue-300'>Click For Posts</p>
+                                </Link>
+            <p className='mb-2'><strong className=''>Name:</strong> {user.name}</p>
             <p className='mb-2'><strong className=''>Email:</strong> <span className='italic'>{user.email}</span></p>
             <p className='mb-2'><strong className=''>City:</strong> <span className=''>{user.address.city}</span></p>
-            </Link>
+           
           <hr className='border-black'/>
             <Link href={`/FetchData/Todolist/${user.id}/`} >
-            <p className='italic font-serif underline bg-blue-300  '>Click For Todo</p>
+            <p className='italic font-serif underline bg-blue-300 dark:bg-gray-400  hover:bg-gray-300'>Click For Todo</p>
           
             </Link>
                     </div>
