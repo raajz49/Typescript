@@ -1,5 +1,4 @@
 
-//cart.tsx
 import { useState } from "react";
 
 interface Todo {
