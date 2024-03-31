@@ -21,9 +21,12 @@ export const TodoCard = ({ todo, data, setData }: { todo: Todo; data: Todo[]; se
             method: "DELETE"
           }
         );
+        const result=confirm(`Are you sure you wanna delete Todo-${todoId}?`);
+        if(result){
         if (response.ok) {
           setData(data.filter((todo) => todo.id !== todoId));
         }
+      }
       };
   
     const handleEditTodo = (todoId: number ) => {
@@ -35,10 +38,12 @@ export const TodoCard = ({ todo, data, setData }: { todo: Todo; data: Todo[]; se
     const handleSave = (todoId: number) => {
       const updatedData = [...data];
       todo.title = editedTodoText;
+      const result=confirm(`Confirm update in Todo-${todoId}?`);
+      if(result){
       setData(updatedData);
       setIsEditing(false); 
     };
-
+  }
     const handleCompletedChange=(completed:boolean)=>{
         const updatedData = [...data];
         todo.completed=completed;
@@ -54,19 +59,19 @@ export const TodoCard = ({ todo, data, setData }: { todo: Todo; data: Todo[]; se
       <p className="underline font-bold font-sans">Title</p>
      
       {isEditing? ( 
-        <div>
+        <div className="flex gap-2">
           <input
           
             type="text"
             value={editedTodoText}
             onChange={(e) => setEditedTodoText(e.target.value)}
            
-          />
-          <button onClick={() => handleSave(todo.id)}>Save</button>
+          className="dark:bg-white w-2/3 " />
+          <button onClick={() => handleSave(todo.id)}className="bg-blue-400 rounded">Save</button>
          
         </div>
       ) : (
-        <h1 onClick={() => handleEditTodo(todo.id)}>{todo.title}</h1> // Click to edit
+        <h1 onClick={() => handleEditTodo(todo.id)} className="gap-2">{todo.title} </h1> // Click to edit
       )}
 
       <p className="underline font-bold font-sans">Completed</p>
