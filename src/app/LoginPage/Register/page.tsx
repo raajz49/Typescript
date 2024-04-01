@@ -3,10 +3,8 @@
 import Link from 'next/link'
 import { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import {Icon} from 'react-icons-kit';
-import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-import {eye} from 'react-icons-kit/feather/eye'
-
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 interface FormValues {
   Name: string;
   email: string;
@@ -19,7 +17,7 @@ const Register = () => {
   const initialvalues: FormValues = { Name: "", email: "", password: "", Confirmpassword: "" };
   const [formValues, setFormValues] = useState(initialvalues);
   const [formErrors, setFormErrors] = useState<Partial<FormValues>>({});
- 
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -37,7 +35,6 @@ const Register = () => {
     }
   }
 
-    
   const validate = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -69,6 +66,10 @@ const Register = () => {
     return errors;
   }
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div>
       <h1 className='flex justify-center mt-36 font-serif font-bold mb-3 text-3xl'>Registration page</h1>
@@ -97,25 +98,43 @@ const Register = () => {
             {formErrors.email && <p className="text-red-500">{formErrors.email}</p>}
           </div>
           <div className='mb-4'>
-            <input
-              type="password"
-              name="password"
-              value={formValues.password}
-              placeholder='Enter your password'
-              onChange={handleChange}
-              className="w-full mb-1 px-4 py-2 text-gray-700 bg-gray-600 border border-gray-300 rounded-md focus:outline-none focus:bg-gray-500 focus:border-blue-500"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formValues.password}
+                placeholder='Enter your password'
+                onChange={handleChange}
+                className="w-full mb-1 px-4 py-2 text-gray-700 bg-gray-600 border border-gray-300 rounded-md focus:outline-none focus:bg-gray-500 focus:border-blue-500"
+              />
+              <button
+                type="button"
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 text-black "
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </button>
+            </div>
             {formErrors.password && <p className="text-red-500">{formErrors.password}</p>}
           </div>
           <div className='mb-4'>
+          <div className="relative">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="Confirmpassword"
               value={formValues.Confirmpassword}
               placeholder='Confirm password'
               onChange={handleChange}
               className="w-full mb-4 px-4 py-2 text-gray-700 bg-gray-600 border border-gray-300 rounded-md focus:outline-none focus:bg-gray-500 focus:border-blue-500"
             />
+            <button
+                type="button"
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 text-black "
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+              </button>
+            </div>
             {formErrors.Confirmpassword && <p className="text-red-500">{formErrors.Confirmpassword}</p>}
           </div>
           <div className='mb-3' >
