@@ -2,6 +2,8 @@
 import Link from 'next/link'
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 interface FormValues {
   email: string;
@@ -13,6 +15,7 @@ const Login = () => {
   const initialvalues: FormValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialvalues);
   const [formErrors, setFormErrors] = useState<Partial<FormValues>>({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const validate = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
@@ -48,6 +51,11 @@ const Login = () => {
     } else {
       console.log('Validation failed.');
     }
+
+    
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -64,7 +72,7 @@ const Login = () => {
               value={formValues.email}
               onChange={handleChange}
               placeholder='Enter your Email'
-              className="w-full px-4 py-2 text-gray-700 bg-gray-600 border border-gray-500 rounded-md focus:outline-none focus:bg-white focus:border-blue-500"
+              className="w-full mb-4 px-4 py-2 text-white focus:text-gray-500 bg-gray-600 border border-gray-500 rounded-md focus:outline-none focus:bg-gray-700 focus:border-blue-500"
               required
             />
             {formErrors.email && <p className="text-red-500">{formErrors.email}</p>}
@@ -72,15 +80,24 @@ const Login = () => {
 
           <div>
             <label className='block text-sm font-semibold text-white'>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formValues.password}
-              onChange={handleChange}
-              placeholder='Enter your password'
-              className="w-full mb-4 px-4 py-2 text-gray-700 bg-gray-600 border border-gray-500 rounded-md focus:outline-none focus:bg-white focus:border-blue-500"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formValues.password}
+                onChange={handleChange}
+                placeholder='Enter your password'
+                className="w-full mb-4 px-4 py-2 text-white focus:text-gray-500 bg-gray-600 border border-gray-500 rounded-md focus:outline-none focus:bg-gray-700 focus:border-blue-500"
+                required
+              />
+              <button
+                type="button"
+                className="absolute top-1/2 right-2 transform -translate-y-3/4  text-black "
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <VisibilityOffIcon /> :   <VisibilityIcon /> }
+              </button>
+            </div>
             {formErrors.password && <p className="text-red-500">{formErrors.password}</p>}
           </div>
           <div className='flex mb-4 justify-between'>
